@@ -1,17 +1,16 @@
-use std::fs;
 use std::io::{BufRead, BufReader};
 use std::ops::{Deref, DerefMut};
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command, Stdio};
 
 use anyhow::{Context, Result, anyhow, bail};
-use chrono::{SecondsFormat, Utc};
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 use sysinfo::System;
 use tracing::level_filters::LevelFilter;
-use tracing::{debug, error, info, warn};
+use tracing::{error, info, warn};
 use tracing_subscriber::EnvFilter;
+use wgpu::AdapterInfo;
 
 #[derive(Debug, Parser)]
 #[command(author, version, about, long_about = None)]
@@ -46,29 +45,6 @@ fn main() -> Result<()> {
 
     info!("running criterion benchmark...");
     run_criterion(&repo_dir, &cli.name, cli.force)?;
-
-    // let timestamp = Utc::now().to_rfc3339_opts(SecondsFormat::Secs, true);
-    // let output_dir = Path::new(env!("CARGO_MANIFEST_DIR"))
-    //     .join("db")
-    //     .join(&commit_hash)
-    //     .join(&timestamp);
-    // fs::create_dir_all(&output_dir)
-    //     .with_context(|| format!("创建输出目录 {}", output_dir.display()))?;
-
-    // let jsonl_path = output_dir.join("cargo-bench.jsonl");
-    // fs::write(&jsonl_path, &bench_output.stdout)
-    //     .with_context(|| format!("写入 {}", jsonl_path.display()))?;
-
-    // let metadata_path = output_dir.join("metadata.json");
-    // let metadata = serde_json::json!({
-    //     "commit": commit_hash,
-    //     "timestamp": timestamp,
-    //     "status": bench_output.status.code(),
-    // });
-    // fs::write(&metadata_path, serde_json::to_vec_pretty(&metadata)?)
-    //     .with_context(|| format!("写入 {}", metadata_path.display()))?;
-
-    // info!("benchmark 输出已保存到 {}", output_dir.display());
 
     Ok(())
 }
@@ -173,7 +149,10 @@ fn run_criterion(repo_dir: &Path, name: &str, force: bool) -> Result<()> {
 
     let system_info = collect_system_info();
     save_json(&output_dir.join("system_info.json"), &system_info).unwrap();
-    info!("system info saved to {}", output_dir.join("system_info.json").display());
+    info!(
+        "system info saved to {}",
+        output_dir.join("system_info.json").display()
+    );
 
     let child = Command::new("cargo")
         .current_dir(&benches_dir)
@@ -183,7 +162,7 @@ fn run_criterion(repo_dir: &Path, name: &str, force: bool) -> Result<()> {
         .stderr(Stdio::inherit())
         .spawn()
         .context("failed to spawn cargo criterion")?;
-    let mut child= ChildGuard(child);
+    let mut child = ChildGuard(child);
 
     let stdout = child.stdout.take().unwrap();
     let mut stdout = BufReader::new(stdout);
@@ -192,7 +171,6 @@ fn run_criterion(repo_dir: &Path, name: &str, force: bool) -> Result<()> {
     while let Ok(len) = stdout.read_line(&mut buf)
         && len > 0
     {
-        // debug!("read line: {len} {buf:?}");
         let event = match serde_json::from_str::<BenchmarkEvent>(&buf) {
             Ok(res) => res,
             Err(err) => {
@@ -279,6 +257,7 @@ struct SystemInfo {
     /// Bytes
     memory: u64,
     cpus: Vec<CpuInfo>,
+    wgpu_adapter_info: AdapterInfo,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -304,6 +283,15 @@ fn collect_system_info() -> SystemInfo {
         })
         .collect();
 
+    // wgpu adapter info
+    let instance = wgpu::Instance::default();
+    let adapter = pollster::block_on(instance.request_adapter(&wgpu::RequestAdapterOptions {
+        power_preference: wgpu::PowerPreference::HighPerformance,
+        ..Default::default()
+    }))
+    .expect("failed to request wgpu adapter");
+    let wgpu_adapter_info = adapter.get_info();
+
     SystemInfo {
         kernel_version: System::kernel_long_version(),
         os_version: System::long_os_version().unwrap_or_default(),
@@ -311,6 +299,7 @@ fn collect_system_info() -> SystemInfo {
         arch: System::cpu_arch(),
         memory: sys.total_memory(),
         cpus,
+        wgpu_adapter_info,
     }
 }
 
