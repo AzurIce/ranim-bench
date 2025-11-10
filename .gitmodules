@@ -1,0 +1,3 @@
+[submodule "ranim"]
+	path = ranim
+	url = https://github.com/AzurIce/ranim
