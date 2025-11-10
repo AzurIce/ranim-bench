@@ -1,7 +1,8 @@
 use std::fs;
 use std::io::{BufRead, BufReader};
+use std::ops::{Deref, DerefMut};
 use std::path::{Path, PathBuf};
-use std::process::{Command, Stdio};
+use std::process::{Child, Command, Stdio};
 
 use anyhow::{Context, Result, anyhow, bail};
 use chrono::{SecondsFormat, Utc};
@@ -18,6 +19,12 @@ struct Cli {
     /// 是否跳过工作区干净性检查
     #[arg(long)]
     allow_dirty: bool,
+    /// Save name
+    #[arg(long)]
+    name: String,
+    /// Overwrite existing output directory
+    #[arg(long)]
+    force: bool,
 }
 
 fn main() -> Result<()> {
@@ -38,7 +45,7 @@ fn main() -> Result<()> {
     info!("benchmarking on commit {commit_hash}...");
 
     info!("running criterion benchmark...");
-    run_criterion(&repo_dir)?;
+    run_criterion(&repo_dir, &cli.name, cli.force)?;
 
     // let timestamp = Utc::now().to_rfc3339_opts(SecondsFormat::Secs, true);
     // let output_dir = Path::new(env!("CARGO_MANIFEST_DIR"))
@@ -122,9 +129,53 @@ enum BenchmarkEvent {
     GroupComplete(GroupComplete),
 }
 
-fn run_criterion(repo_dir: &Path) -> Result<()> {
+struct ChildGuard(Child);
+
+impl Drop for ChildGuard {
+    fn drop(&mut self) {
+        self.0.kill().unwrap();
+    }
+}
+
+impl Deref for ChildGuard {
+    type Target = Child;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl DerefMut for ChildGuard {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+fn run_criterion(repo_dir: &Path, name: &str, force: bool) -> Result<()> {
     let benches_dir = repo_dir.join("benches");
-    let mut child = Command::new("cargo")
+    let commit_hash = run_git(&repo_dir, ["rev-parse", "HEAD"])?;
+    let commit_hash = commit_hash.trim().to_string();
+    // let timestamp = Utc::now().to_rfc3339_opts(SecondsFormat::Secs, true);
+
+    let output_dir = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("db")
+        .join(&commit_hash)
+        .join(&name);
+    info!("benchmark output will be saved to {}", output_dir.display());
+    if output_dir.exists() {
+        if !force {
+            error!("output directory already exists, use --force to overwrite");
+            return Ok(());
+        }
+        warn!("output directory already exists, removing because --force is specified");
+        std::fs::remove_dir_all(&output_dir).context("failed to remove output directory")?;
+    }
+
+    let system_info = collect_system_info();
+    save_json(&output_dir.join("system_info.json"), &system_info).unwrap();
+    info!("system info saved to {}", output_dir.join("system_info.json").display());
+
+    let child = Command::new("cargo")
         .current_dir(&benches_dir)
         .arg("criterion")
         .arg("--message-format=json")
@@ -132,16 +183,7 @@ fn run_criterion(repo_dir: &Path) -> Result<()> {
         .stderr(Stdio::inherit())
         .spawn()
         .context("failed to spawn cargo criterion")?;
-
-    let commit_hash = run_git(&repo_dir, ["rev-parse", "HEAD"])?;
-    let commit_hash = commit_hash.trim().to_string();
-    let timestamp = Utc::now().to_rfc3339_opts(SecondsFormat::Secs, true);
-
-    let output_dir = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("db")
-        .join(&commit_hash)
-        .join(&timestamp);
-    info!("benchmark output will be saved to {}", output_dir.display());
+    let mut child= ChildGuard(child);
 
     let stdout = child.stdout.take().unwrap();
     let mut stdout = BufReader::new(stdout);
@@ -228,7 +270,7 @@ fn run_git(repo_dir: &Path, args: impl IntoIterator<Item = impl AsRef<str>>) -> 
     Ok(String::from_utf8(output.stdout).with_context(|| "解析 git 输出为 UTF-8")?)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 struct SystemInfo {
     kernel_version: String,
     os_version: String,
@@ -239,7 +281,7 @@ struct SystemInfo {
     cpus: Vec<CpuInfo>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 struct CpuInfo {
     name: String,
     vendor_id: String,
