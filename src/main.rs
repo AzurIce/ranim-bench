@@ -181,17 +181,11 @@ fn run_criterion(repo_dir: &Path, name: &str, force: bool) -> Result<()> {
         match event {
             BenchmarkEvent::BenchmarkComplete(evt) => {
                 info!("benchmark `{}` complete.", evt.id);
-                let segments = evt.id.split('/').collect::<Vec<_>>();
-                assert!(segments.len() == 2);
+                // let segments = evt.id.split('/').collect::<Vec<_>>();
+                // assert!(segments.len() == 2);
+                // let mut path = output_dir.to_path_buf();
 
-                save_json(
-                    output_dir
-                        .join(segments[0])
-                        .join(segments[1])
-                        .with_extension("json"),
-                    &evt,
-                )
-                .unwrap()
+                save_json(output_dir.join(&evt.id).with_extension("json"), &evt).unwrap()
             }
             BenchmarkEvent::GroupComplete(evt) => {
                 info!(
