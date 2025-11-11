@@ -30,7 +30,7 @@ fn main() -> Result<()> {
     init_tracing();
 
     let repo_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("ranim");
-    assert!(repo_dir.exists());
+    assert_submodule_initialized(&repo_dir)?;
 
     let cli = Cli::parse();
     if !cli.allow_dirty {
@@ -58,6 +58,17 @@ fn init_tracing() {
         )
         .with_target(false)
         .try_init();
+}
+
+fn assert_submodule_initialized(submodule_dir: &Path) -> Result<()> {
+    let git_file = submodule_dir.join(".git");
+    if !git_file.exists() {
+        bail!(
+            "子模块 {} 未初始化，请运行 `git submodule update --init --recursive`",
+            submodule_dir.display()
+        );
+    }
+    Ok(())
 }
 
 fn ensure_clean(repo_dir: &Path) -> Result<()> {
