@@ -1,0 +1,114 @@
+{
+  "kernel_version": "Windows OS Build 26200",
+  "os_version": "Windows 11 Pro",
+  "distribution_id": "windows",
+  "arch": "x86_64",
+  "memory": 34271412224,
+  "cpus": [
+    {
+      "name": "CPU 1",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 2",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 3",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 4",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 5",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 6",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 7",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 8",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 9",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 10",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 11",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 12",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 13",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 14",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 15",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 16",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    }
+  ],
+  "wgpu_adapter_info": {
+    "name": "NVIDIA GeForce RTX 4070 Ti SUPER",
+    "vendor": 4318,
+    "device": 9989,
+    "device_type": "DiscreteGpu",
+    "driver": "NVIDIA",
+    "driver_info": "572.47",
+    "backend": "Vulkan"
+  }
+}
