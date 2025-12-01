@@ -14,10 +14,11 @@ sysinfo = "0.37.2"
 toml = "0.9.8"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
-criterion = { version = "0.7.0", features = ["html_reports"] }
+criterion = { version = "0.8.0", features = ["html_reports"] }
 wgpu = { version = "27.0.1", features = ["serde"] }
 pollster = "0.4.0"
-
-[[bench]]
-name = "foo"
-harness = false
+git-graph = "0.7.0"
+svg = "0.18.0"
+git2 = { version = "0.20.2", features = ["vendored-libgit2"] }
+[target.'cfg(not(target_os = "windows"))'.dependencies]
+openssl = { version = "0.10.75", features = ["vendored"] }

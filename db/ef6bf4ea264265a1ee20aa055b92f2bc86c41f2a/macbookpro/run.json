@@ -1,4 +1,6 @@
 {
+  "commit_hash": "ef6bf4ea264265a1ee20aa055b92f2bc86c41f2a",
+  "name": "macbookpro",
   "kernel_version": "Darwin 24.6.0",
   "os_version": "macOS 15.6.1 Sequoia",
   "distribution_id": "macos",
@@ -86,5 +88,29 @@
     "driver": "",
     "driver_info": "",
     "backend": "Metal"
-  }
+  },
+  "benchmarks": [
+    "eval/eval_static_squares/10",
+    "eval/eval_static_squares/100",
+    "eval/eval_static_squares/1000",
+    "eval/eval_transform_squares/10",
+    "eval/eval_transform_squares/100",
+    "eval/eval_transform_squares/1000",
+    "extract/arc",
+    "extract/circle",
+    "extract/polygon/10",
+    "extract/polygon/20",
+    "extract/polygon/40",
+    "extract/polygon/5",
+    "extract/rectangle",
+    "extract/square",
+    "render/static_squares/10",
+    "render/static_squares/20",
+    "render/static_squares/40",
+    "render/static_squares/5",
+    "render/transform_squares/10",
+    "render/transform_squares/20",
+    "render/transform_squares/40",
+    "render/transform_squares/5"
+  ]
 }

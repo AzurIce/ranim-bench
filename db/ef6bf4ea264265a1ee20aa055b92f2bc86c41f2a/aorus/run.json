@@ -1,4 +1,6 @@
 {
+  "commit_hash": "ef6bf4ea264265a1ee20aa055b92f2bc86c41f2a",
+  "name": "aorus",
   "kernel_version": "Windows OS Build 26200",
   "os_version": "Windows 11 Pro",
   "distribution_id": "windows",
@@ -110,5 +112,29 @@
     "driver": "NVIDIA",
     "driver_info": "572.47",
     "backend": "Vulkan"
-  }
+  },
+  "benchmarks": [
+    "eval/eval_static_squares/10",
+    "eval/eval_static_squares/100",
+    "eval/eval_static_squares/1000",
+    "eval/eval_transform_squares/10",
+    "eval/eval_transform_squares/100",
+    "eval/eval_transform_squares/1000",
+    "extract/arc",
+    "extract/circle",
+    "extract/polygon/10",
+    "extract/polygon/20",
+    "extract/polygon/40",
+    "extract/polygon/5",
+    "extract/rectangle",
+    "extract/square",
+    "render/static_squares/10",
+    "render/static_squares/20",
+    "render/static_squares/40",
+    "render/static_squares/5",
+    "render/transform_squares/10",
+    "render/transform_squares/20",
+    "render/transform_squares/40",
+    "render/transform_squares/5"
+  ]
 }

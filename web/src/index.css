@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styles for Git Graph SVG interaction */
+.git-graph-container svg {
+    display: block;
+}
+
+.commit-dot.selected {
+    stroke: #2563eb !important;
+    stroke-width: 2px !important;
+    r: 6px !important;
+    filter: drop-shadow(0 0 2px rgba(37, 99, 235, 0.5));
+}
