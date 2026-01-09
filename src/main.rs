@@ -85,6 +85,7 @@ fn init_tracing() {
 
 fn assert_submodule_initialized(submodule_dir: &Path) -> Result<()> {
     let git_file = submodule_dir.join(".git");
+    info!("checking if {git_file:?} exists");
     if !git_file.exists() {
         bail!(
             "子模块 {} 未初始化，请运行 `git submodule update --init --recursive`",
