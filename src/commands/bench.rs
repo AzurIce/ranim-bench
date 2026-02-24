@@ -105,13 +105,25 @@ fn run_benchmarks(benches_dir: &Path, output_dir: &Path) -> Result<Vec<String>> 
     let stdout = child.stdout.take().unwrap();
     let mut stdout = BufReader::new(stdout);
 
-    // Forward cargo stderr through tracing so it doesn't clobber the progress bar
+    // Parse cargo/criterion stderr to drive a spinner showing current benchmark status
     let stderr = child.stderr.take().unwrap();
     thread::spawn(move || {
         let reader = BufReader::new(stderr);
+        let spinner_span = tracing::info_span!("criterion");
+        spinner_span.pb_set_style(&ProgressStyle::with_template("{spinner:.green} {msg}").unwrap());
+        let _guard = spinner_span.enter();
+
         for line in reader.lines() {
             match line {
-                Ok(line) if !line.is_empty() => info!(target: "cargo", "{}", line),
+                Ok(line) if line.is_empty() => {}
+                Ok(line) => {
+                    // Criterion outputs lines like "Benchmarking eval/eval_static_squares/10: Warming up for 3.0000 s"
+                    if line.starts_with("Benchmarking ") {
+                        spinner_span.pb_set_message(&line);
+                    } else {
+                        info!(target: "cargo", "{}", line);
+                    }
+                }
                 _ => {}
             }
         }
@@ -120,16 +132,6 @@ fn run_benchmarks(benches_dir: &Path, output_dir: &Path) -> Result<Vec<String>> 
     let mut buf = String::new();
     let mut bench_ids = Vec::new();
 
-    let bench_span = tracing::info_span!("benchmarking");
-    bench_span.pb_set_style(
-        &ProgressStyle::with_template(
-            "{spinner:.green} [{elapsed_precise}] [{bar:30.cyan/blue}] {pos}/{len} {msg}",
-        )
-        .unwrap()
-        .progress_chars("=> "),
-    );
-    let _bench_guard = bench_span.enter();
-
     while let Ok(len) = stdout.read_line(&mut buf) {
         if len == 0 {
             break;
@@ -137,8 +139,6 @@ fn run_benchmarks(benches_dir: &Path, output_dir: &Path) -> Result<Vec<String>> 
         if let Ok(event) = serde_json::from_str::<BenchmarkEvent>(&buf) {
             match event {
                 BenchmarkEvent::BenchmarkComplete(evt) => {
-                    bench_span.pb_inc(1);
-                    bench_span.pb_set_message(&evt.id);
                     info!("benchmark `{}` complete.", evt.id);
                     save_json(output_dir.join(&evt.id).with_extension("json"), &evt.data)?;
                     bench_ids.push(evt.id);
