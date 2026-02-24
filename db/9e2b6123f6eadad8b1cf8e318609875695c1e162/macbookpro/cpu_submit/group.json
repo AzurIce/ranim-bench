@@ -1,0 +1,10 @@
+{
+  "group_name": "cpu_submit",
+  "benchmarks": [
+    "cpu_submit/no_wait/25",
+    "cpu_submit/no_wait/100",
+    "cpu_submit/no_wait/400",
+    "cpu_submit/no_wait/1600",
+    "cpu_submit/no_wait/3600"
+  ]
+}

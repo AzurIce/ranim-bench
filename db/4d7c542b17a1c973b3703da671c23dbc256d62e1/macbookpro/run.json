@@ -1,0 +1,116 @@
+{
+  "commit_hash": "4d7c542b17a1c973b3703da671c23dbc256d62e1",
+  "name": "macbookpro",
+  "kernel_version": "Darwin 25.3.0",
+  "os_version": "macOS 26.3",
+  "distribution_id": "macos",
+  "arch": "arm64",
+  "memory": 34359738368,
+  "cpus": [
+    {
+      "name": "1",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "2",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "3",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "4",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "5",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "6",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "7",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "8",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "9",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "10",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "11",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    },
+    {
+      "name": "12",
+      "vendor_id": "Apple",
+      "brand": "Apple M2 Max",
+      "frequency": 3696
+    }
+  ],
+  "wgpu_adapter_info": {
+    "name": "Apple M2 Max",
+    "vendor": 0,
+    "device": 0,
+    "device_type": "IntegratedGpu",
+    "driver": "",
+    "driver_info": "",
+    "backend": "Metal"
+  },
+  "benchmarks": [
+    "eval/eval_static_squares/10",
+    "eval/eval_static_squares/100",
+    "eval/eval_static_squares/1000",
+    "eval/eval_transform_squares/10",
+    "eval/eval_transform_squares/100",
+    "eval/eval_transform_squares/1000",
+    "extract/arc",
+    "extract/circle",
+    "extract/polygon/10",
+    "extract/polygon/20",
+    "extract/polygon/40",
+    "extract/polygon/5",
+    "extract/rectangle",
+    "extract/square",
+    "render/static_squares/10",
+    "render/static_squares/20",
+    "render/static_squares/40",
+    "render/static_squares/5",
+    "render/transform_squares/10",
+    "render/transform_squares/20",
+    "render/transform_squares/40",
+    "render/transform_squares/5"
+  ]
+}

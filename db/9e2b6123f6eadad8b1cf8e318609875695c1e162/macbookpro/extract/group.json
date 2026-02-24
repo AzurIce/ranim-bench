@@ -1,0 +1,13 @@
+{
+  "group_name": "extract",
+  "benchmarks": [
+    "extract/polygon/5",
+    "extract/polygon/10",
+    "extract/polygon/20",
+    "extract/polygon/40",
+    "extract/square",
+    "extract/rectangle",
+    "extract/circle",
+    "extract/arc"
+  ]
+}
