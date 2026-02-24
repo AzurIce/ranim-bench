@@ -1,10 +1,6 @@
-use anyhow::Result;
 use serde::{Deserialize, Serialize};
-use std::{collections::HashMap, path::Path};
-use tracing::info;
+use std::collections::HashMap;
 use wgpu::AdapterInfo;
-
-use crate::utils::save_json;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RunManifest {
@@ -14,18 +10,6 @@ pub struct RunManifest {
     pub system: SystemInfo,
     /// List of benchmark IDs executed in this run
     pub benchmarks: Vec<String>,
-}
-
-impl RunManifest {
-    pub fn save(&self, db_root: &Path) -> Result<()> {
-        let manifest_path = db_root
-            .join(&self.commit_hash)
-            .join(&self.name)
-            .join("run.json");
-        info!("saving run manifest to {}", manifest_path.display());
-        save_json(&manifest_path, self)?;
-        Ok(())
-    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

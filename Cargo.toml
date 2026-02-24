@@ -20,5 +20,7 @@ pollster = "0.4.0"
 git-graph = "0.7.0"
 svg = "0.18.0"
 git2 = { version = "0.20.2", features = ["vendored-libgit2"] }
+tracing-indicatif = "0.3.14"
+indicatif = "0.18.4"
 [target.'cfg(not(target_os = "windows"))'.dependencies]
 openssl = { version = "0.10.75", features = ["vendored"] }

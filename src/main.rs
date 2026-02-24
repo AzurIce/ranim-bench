@@ -13,6 +13,9 @@ use clap::{Parser, Subcommand};
 use std::path::{Path, PathBuf};
 use tracing::level_filters::LevelFilter;
 use tracing::{info, warn};
+use tracing_indicatif::IndicatifLayer;
+use tracing_subscriber::layer::SubscriberExt;
+use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::EnvFilter;
 
 #[derive(Debug, Parser)]
@@ -93,14 +96,21 @@ fn main() -> Result<()> {
 }
 
 fn init_tracing() {
-    let _ = tracing_subscriber::fmt()
-        .with_env_filter(
+    let indicatif_layer = IndicatifLayer::new();
+
+    tracing_subscriber::registry()
+        .with(
+            tracing_subscriber::fmt::layer()
+                .with_writer(indicatif_layer.get_stderr_writer())
+                .with_target(false),
+        )
+        .with(
             EnvFilter::builder()
                 .with_default_directive(LevelFilter::INFO.into())
                 .from_env_lossy(),
         )
-        .with_target(false)
-        .try_init();
+        .with(indicatif_layer)
+        .init();
 }
 
 fn assert_submodule_initialized(submodule_dir: &Path) -> Result<()> {

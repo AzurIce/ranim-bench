@@ -1,7 +1,9 @@
 use crate::utils::run_git;
 use anyhow::{Context, Result};
+use indicatif::ProgressStyle;
 use std::path::Path;
 use tracing::{info, warn};
+use tracing_indicatif::span_ext::IndicatifSpanExt;
 
 /// Find PR-merged commits on origin/main that are missing benchmarks for the given machine name,
 /// then run benchmarks for each one.
@@ -43,7 +45,6 @@ pub fn run(repo_dir: &Path, name: &str, force: bool, dry_run: bool) -> Result<()
         .filter(|(hash, _)| {
             let run_dir = db_root.join(hash).join(name);
             if force {
-                // With --force, re-run everything
                 true
             } else {
                 !run_dir.exists()
@@ -78,8 +79,19 @@ pub fn run(repo_dir: &Path, name: &str, force: bool, dry_run: bool) -> Result<()
     let to_run: Vec<_> = missing.into_iter().rev().cloned().collect();
     let total = to_run.len();
 
-    for (i, (hash, msg)) in to_run.iter().enumerate() {
-        info!("[{}/{}] Benchmarking {} {}", i + 1, total, &hash[..8], msg);
+    let batch_span = tracing::info_span!("bench-missing");
+    batch_span.pb_set_style(
+        &ProgressStyle::with_template(
+            "{spinner:.green} [{elapsed_precise}] [{bar:30.cyan/blue}] {pos}/{len} {msg}",
+        )
+        .unwrap()
+        .progress_chars("=> "),
+    );
+    batch_span.pb_set_length(total as u64);
+    let _batch_guard = batch_span.enter();
+
+    for (hash, msg) in to_run.iter() {
+        batch_span.pb_set_message(&format!("{} {}", &hash[..8], msg));
 
         // Checkout
         run_git(repo_dir, ["checkout", hash])
@@ -93,6 +105,8 @@ pub fn run(repo_dir: &Path, name: &str, force: bool, dry_run: bool) -> Result<()
                 warn!("Continuing with next commit...");
             }
         }
+
+        batch_span.pb_inc(1);
     }
 
     // 5. Restore to latest benchmarked commit
