@@ -1,11 +1,11 @@
-use crate::common::{BenchmarkEvent, DbManifest, RunManifest};
+use crate::common::{BenchmarkEvent, RunManifest};
 use crate::utils::{collect_system_info, run_git, save_json};
-use anyhow::{Context, Result, anyhow};
+use anyhow::{anyhow, Context, Result};
 use std::io::{BufRead, BufReader};
 use std::ops::{Deref, DerefMut};
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command, Stdio};
-use tracing::{error, info, warn};
+use tracing::{info, warn};
 
 struct ChildGuard(Child);
 
@@ -40,8 +40,9 @@ pub fn run(repo_dir: &Path, name: &str, force: bool) -> Result<()> {
     info!("benchmark output will be saved to {}", run_dir.display());
     if run_dir.exists() {
         if !force {
-            error!("output directory already exists, use --force to overwrite");
-            return Ok(());
+            return Err(anyhow!(
+                "output directory already exists, use --force to overwrite"
+            ));
         }
         warn!("output directory already exists, removing because --force is specified");
         std::fs::remove_dir_all(&run_dir).context("failed to remove output directory")?;
@@ -111,22 +112,7 @@ pub fn run(repo_dir: &Path, name: &str, force: bool) -> Result<()> {
         system: system_info,
         benchmarks: bench_ids,
     };
-    run_manifest.save(&db_root)?; // Note: RunManifest::save takes db_root and constructs path using hash/name.
+    run_manifest.save(&db_root)?;
 
-    // Update global manifest
-    update_db_manifest(&db_root, &commit_hash, name)?;
-
-    Ok(())
-}
-
-fn update_db_manifest(db_root: &Path, hash: &str, run_name: &str) -> Result<()> {
-    let mut manifest = DbManifest::load_or_init(db_root)?;
-
-    let runs = manifest.benches.entry(hash.to_string()).or_default();
-    if !runs.contains(&run_name.to_string()) {
-        runs.push(run_name.to_string());
-    }
-
-    manifest.save(db_root)?;
     Ok(())
 }

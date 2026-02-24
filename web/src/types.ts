@@ -37,26 +37,17 @@ export interface SystemInfo {
   wgpu_adapter_info: AdapterInfo;
 }
 
-export interface RunManifest {
-  commit_hash: string;
-  name: string;
-  system: SystemInfo;
-  benchmarks: string[];
-}
-
-export interface DbManifest {
-  // "hash" -> ["run_name1", "run_name2"]
-  benches: Record<string, string[]>;
-}
-
-export interface BenchmarkValue {
+export interface BenchValue {
   estimate: number;
-  lower_bound: number;
-  upper_bound: number;
   unit: string;
 }
 
-export interface BenchmarkResult {
-  id: string;
-  mean: BenchmarkValue;
+export interface CommitBenchData {
+  machines: string[];
+  benchmarks: Record<string, Record<string, BenchValue>>;
+}
+
+export interface AllData {
+  machines: Record<string, SystemInfo>;
+  commits: Record<string, CommitBenchData>;
 }

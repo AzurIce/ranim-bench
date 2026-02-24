@@ -1,37 +1,36 @@
-use crate::common::{CommitRecord, DbManifest};
-use crate::utils::{run_git, save_json};
-use anyhow::{Result, anyhow};
+use crate::common::{AllData, BenchValue, CommitBenchData, CommitRecord, RunManifest};
+use crate::utils::{load_json, run_git, save_json};
+use anyhow::{anyhow, Result};
+use git2::Repository;
 use git_graph::graph::GitGraph;
 use git_graph::print::format::CommitFormat;
 use git_graph::settings::{
     BranchOrder, BranchSettings, BranchSettingsDef, Characters, MergePatterns, Settings,
 };
-use git2::Repository;
+use std::collections::HashMap;
 use std::path::Path;
-use tracing::info;
+use tracing::{info, warn};
 
 pub fn run(root_dir: &Path, repo_dir: &Path) -> Result<()> {
-    // 1. Load manifest
-    info!("Loading manifest...");
     let db_root = root_dir.join("db");
-    // We load it just to ensure it exists or init it, though we don't strictly need it for the graph
-    // if we are showing all history.
-    let _manifest = DbManifest::load_or_init(&db_root)?;
+    let web_public_dir = root_dir.join("web").join("public");
 
-    info!("fetching repo");
+    // 1. Scan db/ and build aggregated data
+    info!("Scanning db/ for benchmark data...");
+    let all_data = scan_db(&db_root)?;
+    info!(
+        "Found {} commits, {} machines",
+        all_data.commits.len(),
+        all_data.machines.len()
+    );
+
+    // 2. Generate git-graph
+    info!("Fetching repo...");
     run_git(repo_dir, &["fetch", "--all"])?;
 
-    // 2. Open repo
     info!("Opening repository at {}...", repo_dir.display());
     let repo = Repository::open(repo_dir)?;
 
-    // 2.5. Fetch and sync remotes
-    // const REMOTE: &str = "origin";
-    // info!("Syncing local branches with remote branches...");
-    // CLI git fetch already fetched remotes.
-    // sync_local_branches_with_remote(&repo, REMOTE)?;
-
-    // 3. Setup GitGraph settings
     let branch_settings = BranchSettings::from(BranchSettingsDef::simple())
         .map_err(|e| anyhow!("Failed to create branch settings: {}", e))?;
 
@@ -41,7 +40,7 @@ pub fn run(root_dir: &Path, repo_dir: &Path) -> Result<()> {
         compact: false,
         colored: true,
         include_remote: true,
-        format: CommitFormat::Medium, // Not used for internal record building but required
+        format: CommitFormat::Medium,
         wrapping: None,
         characters: Characters::thin(),
         branch_order: BranchOrder::ShortestFirst(true),
@@ -49,45 +48,26 @@ pub fn run(root_dir: &Path, repo_dir: &Path) -> Result<()> {
         merge_patterns: MergePatterns::default(),
     };
 
-    // 4. Generate Graph
     info!("Generating git graph...");
-    // GitGraph consumes the repo, so we open it again or move it?
-    // GitGraph::new takes `repository: Repository`.
     let graph =
         GitGraph::new(repo, &settings, None, None).map_err(|e| anyhow!("GitGraph error: {}", e))?;
 
-    // 5. Build CommitRecords
     info!(
         "Building commit records for {} commits...",
         graph.commits.len()
     );
     let mut records = Vec::new();
 
-    // GitGraph commits are sorted by topological/time usually (depends on implementation).
-    // `graph.commits` is a Vec<CommitInfo>.
-    // We iterate them to build records.
-
-    // We need to look up parents' hashes from `graph.commits` or `graph.repository`?
-    // `CommitInfo` stores `oid`.
-
     for (_i, commit_info) in graph.commits.iter().enumerate() {
         let commit = graph.commit(commit_info.oid)?;
-
         let parents: Vec<String> = commit.parents().map(|p| p.id().to_string()).collect();
-
         let author = commit.author();
         let author_name = author.name().unwrap_or("Unknown").to_string();
-
         let time = chrono::DateTime::from_timestamp(commit.time().seconds(), 0)
             .unwrap_or_default()
             .to_rfc3339();
-
         let message = commit.message().unwrap_or("").trim().to_string();
 
-        // Refs: git-graph doesn't store refs string on CommitInfo directly in a simple way for us,
-        // but it has `tags` and `branches` indices.
-        // We can reconstruct a ref string or just use what we have.
-        // Let's try to construct a helpful string.
         let mut refs_parts = Vec::new();
         for &branch_idx in &commit_info.branches {
             if let Some(branch) = graph.all_branches.get(branch_idx) {
@@ -101,7 +81,6 @@ pub fn run(root_dir: &Path, repo_dir: &Path) -> Result<()> {
         }
         let refs_list = refs_parts.join(", ");
 
-        // Branch trace info for layout
         let (column, color, branch_names) = if let Some(trace_idx) = commit_info.branch_trace {
             if let Some(branch) = graph.all_branches.get(trace_idx) {
                 (
@@ -123,44 +102,111 @@ pub fn run(root_dir: &Path, repo_dir: &Path) -> Result<()> {
             author: author_name,
             refs: refs_list,
             message,
-            branches: branch_names, // Main branch for this commit
+            branches: branch_names,
             column,
             color,
         });
     }
 
-    // 6. Save
-    let web_public_dir = root_dir.join("web").join("public");
-    let graph_path = web_public_dir.join("git-graph.json");
+    // 3. Save outputs
+    save_json(web_public_dir.join("git-graph.json"), &records)?;
+    info!("Saved {} commits to git-graph.json", records.len());
 
-    save_json(&graph_path, &records)?;
-    info!(
-        "Saved {} commits to {}",
-        records.len(),
-        graph_path.display()
-    );
-
-    // Copy db
-    let public_db_dir = web_public_dir.join("db");
-    copy_dir_recursive(&db_root, &public_db_dir)?;
+    save_json(web_public_dir.join("all-data.json"), &all_data)?;
+    info!("Saved all-data.json");
 
     Ok(())
 }
 
-fn copy_dir_recursive(src: &Path, dst: &Path) -> Result<()> {
-    if !dst.exists() {
-        std::fs::create_dir_all(dst)?;
+/// Scan the db/ directory and build aggregated AllData
+fn scan_db(db_root: &Path) -> Result<AllData> {
+    let mut all_data = AllData::default();
+
+    if !db_root.exists() {
+        return Ok(all_data);
     }
-    for entry in std::fs::read_dir(src)? {
+
+    for entry in std::fs::read_dir(db_root)? {
         let entry = entry?;
         let path = entry.path();
-        let name = entry.file_name();
-        let dst_path = dst.join(&name);
-        if path.is_dir() {
-            copy_dir_recursive(&path, &dst_path)?;
-        } else {
-            std::fs::copy(&path, &dst_path)?;
+        if !path.is_dir() {
+            continue;
+        }
+
+        let commit_hash = entry.file_name().into_string().unwrap();
+        // Only process 40-char hex directories (commit hashes)
+        if commit_hash.len() != 40 {
+            continue;
+        }
+
+        let mut commit_data = CommitBenchData::default();
+
+        for run_entry in std::fs::read_dir(&path)? {
+            let run_entry = run_entry?;
+            let run_path = run_entry.path();
+            if !run_path.is_dir() {
+                continue;
+            }
+
+            let machine_name = run_entry.file_name().into_string().unwrap();
+
+            // Load run.json for system info
+            let run_json_path = run_path.join("run.json");
+            if !run_json_path.exists() {
+                warn!("Missing run.json for {}/{}", commit_hash, machine_name);
+                continue;
+            }
+
+            let run_manifest: RunManifest = match load_json(&run_json_path) {
+                Ok(m) => m,
+                Err(e) => {
+                    warn!(
+                        "Failed to parse run.json for {}/{}: {}",
+                        commit_hash, machine_name, e
+                    );
+                    continue;
+                }
+            };
+
+            // Update machine system info (keep the latest one seen)
+            all_data
+                .machines
+                .insert(machine_name.clone(), run_manifest.system);
+
+            // Load each benchmark result
+            let mut bench_results = HashMap::new();
+            for bench_id in &run_manifest.benchmarks {
+                let bench_path = run_path.join(bench_id).with_extension("json");
+                if let Ok(json) = std::fs::read_to_string(&bench_path) {
+                    if let Ok(val) = serde_json::from_str::<serde_json::Value>(&json) {
+                        if let (Some(estimate), Some(unit)) = (
+                            val.get("mean")
+                                .and_then(|m| m.get("estimate"))
+                                .and_then(|e| e.as_f64()),
+                            val.get("mean")
+                                .and_then(|m| m.get("unit"))
+                                .and_then(|u| u.as_str()),
+                        ) {
+                            bench_results.insert(
+                                bench_id.clone(),
+                                BenchValue {
+                                    estimate,
+                                    unit: unit.to_string(),
+                                },
+                            );
+                        }
+                    }
+                }
+            }
+
+            commit_data.machines.push(machine_name.clone());
+            commit_data.benchmarks.insert(machine_name, bench_results);
+        }
+
+        if !commit_data.machines.is_empty() {
+            all_data.commits.insert(commit_hash, commit_data);
         }
     }
-    Ok(())
+
+    Ok(all_data)
 }

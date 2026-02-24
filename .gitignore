@@ -1,2 +1,6 @@
 /target
 .direnv
+db/db.json
+web/public/db/
+web/public/git-graph.json
+web/public/all-data.json

@@ -1,7 +1,7 @@
 use crate::common::{CpuInfo, SystemInfo};
-use anyhow::{Context, Result, anyhow};
-use serde::Serialize;
+use anyhow::{anyhow, Context, Result};
 use serde::de::DeserializeOwned;
+use serde::Serialize;
 use std::path::Path;
 use std::process::{Command, Stdio};
 

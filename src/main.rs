@@ -1,5 +1,6 @@
 mod commands {
     pub mod bench;
+    pub mod bench_missing;
     pub mod graph;
     pub mod sync;
 }
@@ -7,7 +8,7 @@ mod common;
 mod utils;
 
 use crate::utils::run_git;
-use anyhow::{Result, bail};
+use anyhow::{bail, Result};
 use clap::{Parser, Subcommand};
 use std::path::{Path, PathBuf};
 use tracing::level_filters::LevelFilter;
@@ -23,21 +24,33 @@ struct Cli {
 
 #[derive(Debug, Subcommand)]
 enum Commands {
-    /// Run benchmarks
+    /// Run benchmarks for a single commit
     Bench {
-        /// 是否跳过工作区干净性检查
+        /// Skip working directory clean check
         #[arg(long)]
         allow_dirty: bool,
-        /// Save name
+        /// Machine/run name (e.g. "macbookpro", "aorus")
         #[arg(long)]
         name: String,
         /// Overwrite existing output directory
         #[arg(long)]
         force: bool,
     },
-    /// Generate git-graph and copy data for web
+    /// Auto-benchmark all PR-merged commits missing data for this machine
+    BenchMissing {
+        /// Machine/run name (e.g. "macbookpro", "aorus")
+        #[arg(long)]
+        name: String,
+        /// Overwrite existing benchmark data
+        #[arg(long)]
+        force: bool,
+        /// Only show what would be benchmarked, don't run
+        #[arg(long)]
+        dry_run: bool,
+    },
+    /// Generate git-graph and all-data.json for web
     Graph,
-    /// Sync db structure (db.json, run.json)
+    /// Sync run.json files from db structure
     Sync,
 }
 
@@ -67,6 +80,13 @@ fn main() -> Result<()> {
         }
         Commands::Graph => commands::graph::run(&root_dir, &repo_dir)?,
         Commands::Sync => commands::sync::run(&root_dir)?,
+        Commands::BenchMissing {
+            name,
+            force,
+            dry_run,
+        } => {
+            commands::bench_missing::run(&repo_dir, &name, force, dry_run)?;
+        }
     }
 
     Ok(())
