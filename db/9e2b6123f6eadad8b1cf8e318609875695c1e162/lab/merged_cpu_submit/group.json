@@ -1,0 +1,10 @@
+{
+  "group_name": "merged_cpu_submit",
+  "benchmarks": [
+    "merged_cpu_submit/no_wait/25",
+    "merged_cpu_submit/no_wait/100",
+    "merged_cpu_submit/no_wait/400",
+    "merged_cpu_submit/no_wait/1600",
+    "merged_cpu_submit/no_wait/3600"
+  ]
+}

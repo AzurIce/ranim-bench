@@ -1,0 +1,236 @@
+{
+  "commit_hash": "56a099f2caa26d15b641b74c4ece814c7cf4bd28",
+  "name": "lab",
+  "kernel_version": "Linux 6.14.0-37-generic",
+  "os_version": "Linux (Ubuntu 24.04)",
+  "distribution_id": "ubuntu",
+  "arch": "x86_64",
+  "memory": 64927756288,
+  "cpus": [
+    {
+      "name": "cpu0",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu1",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5678
+    },
+    {
+      "name": "cpu2",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu3",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu4",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5681
+    },
+    {
+      "name": "cpu5",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 3631
+    },
+    {
+      "name": "cpu6",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5667
+    },
+    {
+      "name": "cpu7",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5633
+    },
+    {
+      "name": "cpu8",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu9",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5466
+    },
+    {
+      "name": "cpu10",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5450
+    },
+    {
+      "name": "cpu11",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5453
+    },
+    {
+      "name": "cpu12",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu13",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5462
+    },
+    {
+      "name": "cpu14",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu15",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu16",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5687
+    },
+    {
+      "name": "cpu17",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu18",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5654
+    },
+    {
+      "name": "cpu19",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu20",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu21",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu22",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu23",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5665
+    },
+    {
+      "name": "cpu24",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu25",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu26",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu27",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu28",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu29",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5466
+    },
+    {
+      "name": "cpu30",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu31",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    }
+  ],
+  "wgpu_adapter_info": {
+    "name": "NVIDIA GeForce RTX 4090",
+    "vendor": 4318,
+    "device": 9860,
+    "device_type": "DiscreteGpu",
+    "driver": "NVIDIA",
+    "driver_info": "590.48.01",
+    "backend": "Vulkan"
+  },
+  "benchmarks": [
+    "eval/eval_static_squares/10",
+    "eval/eval_transform_squares/10",
+    "eval/eval_static_squares/100",
+    "eval/eval_transform_squares/100",
+    "eval/eval_static_squares/1000",
+    "eval/eval_transform_squares/1000",
+    "extract/polygon/5",
+    "extract/polygon/10",
+    "extract/polygon/20",
+    "extract/polygon/40",
+    "extract/square",
+    "extract/rectangle",
+    "extract/circle",
+    "extract/arc",
+    "render/static_squares/5",
+    "render/transform_squares/5",
+    "render/static_squares/10",
+    "render/transform_squares/10",
+    "render/static_squares/20",
+    "render/transform_squares/20",
+    "render/static_squares/40",
+    "render/transform_squares/40"
+  ]
+}

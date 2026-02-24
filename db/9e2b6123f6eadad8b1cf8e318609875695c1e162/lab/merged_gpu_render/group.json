@@ -1,0 +1,10 @@
+{
+  "group_name": "merged_gpu_render",
+  "benchmarks": [
+    "merged_gpu_render/submit/25",
+    "merged_gpu_render/submit/100",
+    "merged_gpu_render/submit/400",
+    "merged_gpu_render/submit/1600",
+    "merged_gpu_render/submit/3600"
+  ]
+}

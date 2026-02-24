@@ -1,0 +1,10 @@
+{
+  "group_name": "gpu_render",
+  "benchmarks": [
+    "gpu_render/submit/25",
+    "gpu_render/submit/100",
+    "gpu_render/submit/400",
+    "gpu_render/submit/1600",
+    "gpu_render/submit/3600"
+  ]
+}

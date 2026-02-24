@@ -1,0 +1,74 @@
+{
+  "report_directory": "/home/user/workspaces/ranim-bench/ranim/target/criterion/reports/eval/eval_transform_squares/100",
+  "measured_values": [
+    99964078.0,
+    189683400.0,
+    282104801.0,
+    368584603.0,
+    471533202.0,
+    553120156.0,
+    664807339.0,
+    752710715.0,
+    837703641.0,
+    926452376.0
+  ],
+  "throughput": [],
+  "typical": {
+    "estimate": 5188393.111255411,
+    "lower_bound": 5155723.811153807,
+    "unit": "ns",
+    "upper_bound": 5233890.056266801
+  },
+  "slope": {
+    "estimate": 5188393.111255411,
+    "lower_bound": 5155723.811153807,
+    "unit": "ns",
+    "upper_bound": 5233890.056266801
+  },
+  "median_abs_dev": {
+    "estimate": 78013.36730387458,
+    "lower_bound": 11189.78876911928,
+    "unit": "ns",
+    "upper_bound": 156026.73460774915
+  },
+  "median": {
+    "estimate": 5225660.362268519,
+    "lower_bound": 5146246.527777778,
+    "unit": "ns",
+    "upper_bound": 5268983.333333333
+  },
+  "change": {
+    "change": "Regressed",
+    "mean": {
+      "estimate": 0.0376507619094526,
+      "lower_bound": 0.021803325449146375,
+      "unit": "%",
+      "upper_bound": 0.05613643016548656
+    },
+    "median": {
+      "estimate": 0.038240250247972174,
+      "lower_bound": 0.015860001526769585,
+      "unit": "%",
+      "upper_bound": 0.053516466060659074
+    }
+  },
+  "iteration_count": [
+    18,
+    36,
+    54,
+    72,
+    90,
+    108,
+    126,
+    144,
+    162,
+    180
+  ],
+  "unit": "ns",
+  "mean": {
+    "estimate": 5234805.17662037,
+    "lower_bound": 5172068.716094906,
+    "unit": "ns",
+    "upper_bound": 5317164.010247685
+  }
+}

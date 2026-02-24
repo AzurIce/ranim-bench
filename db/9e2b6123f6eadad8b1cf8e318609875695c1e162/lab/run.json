@@ -1,0 +1,256 @@
+{
+  "commit_hash": "9e2b6123f6eadad8b1cf8e318609875695c1e162",
+  "name": "lab",
+  "kernel_version": "Linux 6.14.0-37-generic",
+  "os_version": "Linux (Ubuntu 24.04)",
+  "distribution_id": "ubuntu",
+  "arch": "x86_64",
+  "memory": 64927756288,
+  "cpus": [
+    {
+      "name": "cpu0",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5650
+    },
+    {
+      "name": "cpu1",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5650
+    },
+    {
+      "name": "cpu2",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu3",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu4",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu5",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu6",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu7",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu8",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu9",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu10",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu11",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 3957
+    },
+    {
+      "name": "cpu12",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5478
+    },
+    {
+      "name": "cpu13",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 5472
+    },
+    {
+      "name": "cpu14",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu15",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu16",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu17",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu18",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu19",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu20",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu21",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu22",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu23",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu24",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu25",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu26",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu27",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu28",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu29",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu30",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    },
+    {
+      "name": "cpu31",
+      "vendor_id": "AuthenticAMD",
+      "brand": "AMD Ryzen 9 9950X 16-Core Processor",
+      "frequency": 624
+    }
+  ],
+  "wgpu_adapter_info": {
+    "name": "NVIDIA GeForce RTX 4090",
+    "vendor": 4318,
+    "device": 9860,
+    "device_type": "DiscreteGpu",
+    "driver": "NVIDIA",
+    "driver_info": "590.48.01",
+    "backend": "Vulkan"
+  },
+  "benchmarks": [
+    "eval/eval_static_squares/10",
+    "eval/eval_transform_squares/10",
+    "eval/eval_static_squares/100",
+    "eval/eval_transform_squares/100",
+    "eval/eval_static_squares/1000",
+    "eval/eval_transform_squares/1000",
+    "extract/polygon/5",
+    "extract/polygon/10",
+    "extract/polygon/20",
+    "extract/polygon/40",
+    "extract/square",
+    "extract/rectangle",
+    "extract/circle",
+    "extract/arc",
+    "gpu_render/submit/25",
+    "gpu_render/submit/100",
+    "gpu_render/submit/400",
+    "gpu_render/submit/1600",
+    "gpu_render/submit/3600",
+    "cpu_submit/no_wait/25",
+    "cpu_submit/no_wait/100",
+    "cpu_submit/no_wait/400",
+    "cpu_submit/no_wait/1600",
+    "cpu_submit/no_wait/3600",
+    "merged_gpu_render/submit/25",
+    "merged_gpu_render/submit/100",
+    "merged_gpu_render/submit/400",
+    "merged_gpu_render/submit/1600",
+    "merged_gpu_render/submit/3600",
+    "merged_cpu_submit/no_wait/25",
+    "merged_cpu_submit/no_wait/100",
+    "merged_cpu_submit/no_wait/400",
+    "merged_cpu_submit/no_wait/1600",
+    "merged_cpu_submit/no_wait/3600",
+    "render/static_squares/5",
+    "render/transform_squares/5",
+    "render/static_squares/10",
+    "render/transform_squares/10",
+    "render/static_squares/20",
+    "render/transform_squares/20",
+    "render/static_squares/40",
+    "render/transform_squares/40"
+  ]
+}

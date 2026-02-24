@@ -1,0 +1,13 @@
+{
+  "group_name": "render",
+  "benchmarks": [
+    "render/static_squares/5",
+    "render/transform_squares/5",
+    "render/static_squares/10",
+    "render/transform_squares/10",
+    "render/static_squares/20",
+    "render/transform_squares/20",
+    "render/static_squares/40",
+    "render/transform_squares/40"
+  ]
+}

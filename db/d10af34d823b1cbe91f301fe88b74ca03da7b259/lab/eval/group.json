@@ -1,0 +1,11 @@
+{
+  "group_name": "eval",
+  "benchmarks": [
+    "eval/eval_static_squares/10",
+    "eval/eval_transform_squares/10",
+    "eval/eval_static_squares/100",
+    "eval/eval_transform_squares/100",
+    "eval/eval_static_squares/1000",
+    "eval/eval_transform_squares/1000"
+  ]
+}
