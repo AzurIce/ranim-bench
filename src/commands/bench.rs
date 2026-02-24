@@ -6,6 +6,7 @@ use std::io::{BufRead, BufReader};
 use std::ops::{Deref, DerefMut};
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command, Stdio};
+use std::thread;
 use tracing::{info, warn};
 use tracing_indicatif::span_ext::IndicatifSpanExt;
 
@@ -96,13 +97,25 @@ fn run_benchmarks(benches_dir: &Path, output_dir: &Path) -> Result<Vec<String>> 
         .arg("criterion")
         .arg("--message-format=json")
         .stdout(Stdio::piped())
-        .stderr(Stdio::inherit())
+        .stderr(Stdio::piped())
         .spawn()
         .context("failed to spawn cargo criterion")?;
     let mut child = ChildGuard(child);
 
     let stdout = child.stdout.take().unwrap();
     let mut stdout = BufReader::new(stdout);
+
+    // Forward cargo stderr through tracing so it doesn't clobber the progress bar
+    let stderr = child.stderr.take().unwrap();
+    thread::spawn(move || {
+        let reader = BufReader::new(stderr);
+        for line in reader.lines() {
+            match line {
+                Ok(line) if !line.is_empty() => info!(target: "cargo", "{}", line),
+                _ => {}
+            }
+        }
+    });
 
     let mut buf = String::new();
     let mut bench_ids = Vec::new();
