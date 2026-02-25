@@ -1,0 +1,160 @@
+{
+  "commit_hash": "232c488327e9e8036e0350162155ae3050ba7ba5",
+  "name": "aorus",
+  "kernel_version": "Windows OS Build 26200",
+  "os_version": "Windows 11 Pro",
+  "distribution_id": "windows",
+  "arch": "x86_64",
+  "memory": 34271387648,
+  "cpus": [
+    {
+      "name": "CPU 1",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 2",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 3",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 4",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 5",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 6",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 7",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 8",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 9",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 10",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 11",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 12",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 13",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 14",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 15",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    },
+    {
+      "name": "CPU 16",
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz",
+      "frequency": 3600
+    }
+  ],
+  "wgpu_adapter_info": {
+    "name": "NVIDIA GeForce RTX 4070 Ti SUPER",
+    "vendor": 4318,
+    "device": 9989,
+    "device_type": "DiscreteGpu",
+    "driver": "NVIDIA",
+    "driver_info": "572.47",
+    "backend": "Vulkan"
+  },
+  "benchmarks": [
+    "eval/eval_static_squares/10",
+    "eval/eval_transform_squares/10",
+    "eval/eval_static_squares/100",
+    "eval/eval_transform_squares/100",
+    "eval/eval_static_squares/1000",
+    "eval/eval_transform_squares/1000",
+    "extract/polygon/5",
+    "extract/polygon/10",
+    "extract/polygon/20",
+    "extract/polygon/40",
+    "extract/square",
+    "extract/rectangle",
+    "extract/circle",
+    "extract/arc",
+    "gpu_render/submit/25",
+    "gpu_render/submit/100",
+    "gpu_render/submit/400",
+    "gpu_render/submit/1600",
+    "gpu_render/submit/3600",
+    "cpu_submit/no_wait/25",
+    "cpu_submit/no_wait/100",
+    "cpu_submit/no_wait/400",
+    "cpu_submit/no_wait/1600",
+    "cpu_submit/no_wait/3600",
+    "merged_gpu_render/submit/25",
+    "merged_gpu_render/submit/100",
+    "merged_gpu_render/submit/400",
+    "merged_gpu_render/submit/1600",
+    "merged_gpu_render/submit/3600",
+    "merged_cpu_submit/no_wait/25",
+    "merged_cpu_submit/no_wait/100",
+    "merged_cpu_submit/no_wait/400",
+    "merged_cpu_submit/no_wait/1600",
+    "merged_cpu_submit/no_wait/3600",
+    "render/static_squares/5",
+    "render/transform_squares/5",
+    "render/static_squares/10",
+    "render/transform_squares/10",
+    "render/static_squares/20",
+    "render/transform_squares/20",
+    "render/static_squares/40",
+    "render/transform_squares/40"
+  ]
+}
